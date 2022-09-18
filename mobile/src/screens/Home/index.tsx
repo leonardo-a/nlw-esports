@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { View, Image, FlatList } from 'react-native';
 
 import { styles } from './styles';
@@ -9,7 +9,28 @@ import { GameCard } from '../../components/GameCard';
 
 import { GAMES } from '../../utils/games';
 
+interface Game {
+  id: string;
+  tittle: string;
+  bannerUrl: string;
+  _count: {
+    ads: number;
+  }
+
+}
+
 export function Home() {
+
+  // const[games, setGames] = useState<Game[]>([])
+
+  // useEffect( () => {
+  //   fetch("http://:3333/games")
+  //     .then( response => response.json() )
+  //     .then( data => { 
+  //       setGames(data)
+  //     })
+  // },[])
+
   return (
     <View style={styles.container}>
         <Image 
