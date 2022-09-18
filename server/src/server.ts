@@ -53,10 +53,11 @@ app.get('/games/:id/ads', async (req, resp) => {
         select: {
             id: true,
             name: true,
+            yearsPlaying: true,
             weekDays: true,
             hourStart: true,
             hourEnd: true,
-            useVoiceChannel: true
+            useVoiceChannel: true,
         },
         where:{
             gameId
