@@ -2,7 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import * as Checkbox from "@radix-ui/react-checkbox"
 import * as ToggleGroup from "@radix-ui/react-toggle-group"
 import * as Select from "@radix-ui/react-select"
-import { Check, GameController } from "phosphor-react"
+import { Check, GameController, ArrowDown, ArrowUp } from "phosphor-react"
 import { FormEvent, useEffect, useState } from "react"
 import axios from 'axios';
 
@@ -36,6 +36,19 @@ export function CreateAdModal(){
         }
 
         try{
+
+            let postData = {
+              name: data.name,
+              yearsPlaying: Number(data.yearsPlaying),
+              discord: data.discord,
+              weekDays: weekDays.map(Number),
+              hourStart: data.hourStart,
+              hourEnd: data.hourEnd,
+              useVoiceChannel: useVoiceChannel
+          }
+
+          console.log(postData);
+
             await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
                 name: data.name,
                 yearsPlaying: Number(data.yearsPlaying),
@@ -68,19 +81,38 @@ export function CreateAdModal(){
             <form onSubmit={handleCreateAd} className="flex flex-col gap-4 mt-8">
               <div className="flex flex-col gap-2">
                 <label htmlFor="game" className="font-semibold">Qual o game?</label>
-                <select
-                  id="game"
+                
+                <Select.Root key="game"
                   name="game"
-                  className="bg-zinc-900 py-3 px-4 rounded text-sm placehold:text-zinc-500 appearance-none"
-                  defaultValue=""
                 >
-                    <option disabled>Selecione o game que deseja jogar</option>
-                    {
+                  <Select.Trigger 
+                    className="flex justify-between items-center text-sm rounded bg-zinc-900 py-3 px-4"
+                  >
+                    <Select.Value className="text-center" placeholder="Selecione um jogo..."/>
+                    <Select.SelectIcon>
+                      <ArrowDown /> 
+                    </Select.SelectIcon>
+                  </Select.Trigger>
+                  <Select.Portal >
+                    <Select.Content>
+                      <Select.Viewport  className="text-white bg-zinc-700 rounded text-sm overflow-auto">
+
+                      {
                         games.map( game => {
-                            return <option key={game.id} value={game.id}>{game.title}</option>
+                          return (
+                            <Select.Item  key={game.id} value={game.id} className="px-4 py-3 cursor-pointer hover:bg-zinc-800">
+                              <Select.ItemText>{game.title}</Select.ItemText>
+                              <Select.ItemIndicator />
+                            </Select.Item>
+
+                          )
                         })
-                    }
-                </select>
+                      }
+
+                      </Select.Viewport>
+                    </Select.Content>
+                    </Select.Portal>
+                </Select.Root>
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="name">Seu nome(ou nickname)</label>
