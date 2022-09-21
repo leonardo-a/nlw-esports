@@ -36,19 +36,6 @@ export function CreateAdModal(){
         }
 
         try{
-
-            let postData = {
-              name: data.name,
-              yearsPlaying: Number(data.yearsPlaying),
-              discord: data.discord,
-              weekDays: weekDays.map(Number),
-              hourStart: data.hourStart,
-              hourEnd: data.hourEnd,
-              useVoiceChannel: useVoiceChannel
-          }
-
-          console.log(postData);
-
             await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
                 name: data.name,
                 yearsPlaying: Number(data.yearsPlaying),

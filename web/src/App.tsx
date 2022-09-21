@@ -36,21 +36,21 @@ function App() {
       <h1 className="text-6xl text-white font-black mt-20">
         Seu <span className="bg-nlw-gradient text-transparent bg-clip-text">duo</span> está aqui.
       </h1>
+      <div className="overflow-x-auto">
+        <div className="flex gap-6 mt-16">
+          {games.map(data => {
+            return (
+              <GameBanner
+                key={data.id}
+                bannerUrl={data.bannerUrl}
+                title={data.title}
+                adsCount={data._count.ads}
+              />
+            )
+          })}
 
-      <div className="grid grid-cols-6 gap-6 mt-16">
-        {games.map(data => {
-          return (
-            <GameBanner
-              key={data.id}
-              bannerUrl={data.bannerUrl}
-              title={data.title}
-              adsCount={data._count.ads}
-            />
-          )
-        })}
-
+        </div>
       </div>
-
       <Dialog.Root >
         <CreateAdBanner />
         <CreateAdModal />
